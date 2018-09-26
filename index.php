@@ -69,11 +69,12 @@ $lots = [
 ];
 
 function format_sum($sum) {
-    if ($sum >= 1000) {
-        return (number_format(ceil($sum), 0, ".", " ") . "₽");
-    } else {
-        return (ceil($sum) . "₽");
+    $round_sum = ceil($sum);
+    $sum_string = ceil($round_sum) . "₽";
+    if ($round_sum >= 1000) {
+        $sum_string = number_format(ceil($sum), 0, ".", " ") . "₽";
     }
+    return $sum_string;
 }
 ?>
 
