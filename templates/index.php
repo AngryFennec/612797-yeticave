@@ -29,7 +29,7 @@
                         <span class="lot__cost"><?=format_sum($val['price']); ?></span>
                     </div>
                     <div class="lot__timer timer">
-                        <?=get_formatted_time();?>
+                        <?=get_formatted_time(get_random_date());?>
                     </div>
                 </div>
             </div>
