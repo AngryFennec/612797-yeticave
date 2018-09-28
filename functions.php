@@ -25,4 +25,11 @@ function format_sum($sum) {
     return $sum_string;
 }
 
+function get_formatted_time() {
+    $ts_midnight = strtotime('tomorrow');
+    $secs_to_midnight = $ts_midnight - time();
+    $hours = floor($secs_to_midnight / 3600);
+    $minutes = floor(($secs_to_midnight % 3600) / 60);
+    return $hours.':'.$minutes;
+}
 ?>
