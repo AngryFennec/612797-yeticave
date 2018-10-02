@@ -1,13 +1,13 @@
-DROP DATABASE yeticave;
-CREATE DATABASE IF NOT EXISTS yeticave
+DROP DATABASE 612797-yeticave;
+CREATE DATABASE IF NOT EXISTS 612797-yeticave
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
 
 USE yeticave;
 
 CREATE TABLE users (
-  id  INT AUTO_INCREMENT PRIMARY KEY,
-  email CHAR(128),
+  user_id  INT AUTO_INCREMENT PRIMARY KEY,
+  email CHAR(128) UNIQUE,
   password  CHAR(64),
   init_date  TIMESTAMP,
   name  CHAR(128),
@@ -16,12 +16,14 @@ CREATE TABLE users (
 );
 
 CREATE TABLE bets (
+  bet_id INT PRIMARY KEY,
   init_date  TIMESTAMP,
   sum INT
 );
 
 CREATE TABLE categories (
-  name  CHAR(128)
+  category_id INT PRIMARY KEY,
+  name  CHAR(128) UNIQUE
 );
 
 CREATE TABLE lots (
@@ -31,11 +33,8 @@ CREATE TABLE lots (
   name  CHAR(128),
   description CHAR(128),
   img  CHAR(128),
-  bet_step  INT
+  bet_step  INT,
+  user_id INT
+  category_id INT FOREIGN KEY,
+  lot_id INT PRIMATY KEY
 );
-
-CREATE UNIQUE INDEX email ON users(email);
-CREATE UNIQUE INDEX id ON users(id);
-CREATE UNIQUE INDEX name ON categories(name);
-CREATE INDEX name ON lots(name);
-CREATE INDEX description ON lots(description);
