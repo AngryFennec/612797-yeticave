@@ -1,41 +1,52 @@
-DROP DATABASE yeticave;
-CREATE DATABASE IF NOT EXISTS yeticave
+DROP DATABASE 612797_yeticave;
+CREATE DATABASE IF NOT EXISTS 612797_yeticave
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
 
-USE yeticave;
+USE 612797_yeticave;
 
 CREATE TABLE users (
-  id  INT AUTO_INCREMENT PRIMARY KEY,
-  email CHAR(128),
-  password  CHAR(64),
+  user_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(128) UNIQUE,
+  password  VARCHAR(64),
   init_date  TIMESTAMP,
-  name  CHAR(128),
-  avatar  CHAR(128),
+  name  VARCHAR(128),
+  avatar  VARCHAR(128),
   contacts  TEXT
 );
 
-CREATE TABLE bets (
-  init_date  TIMESTAMP,
-  sum INT
-);
 
 CREATE TABLE categories (
-  name  CHAR(128)
+  category_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  class VARCHAR(128) UNIQUE,
+  name  VARCHAR(128) UNIQUE
 );
 
 CREATE TABLE lots (
   sum  INT,
   init_date  TIMESTAMP,
   end_date  TIMESTAMP,
-  name  CHAR(128),
-  description CHAR(128),
-  img  CHAR(128),
-  bet_step  INT
+  name  VARCHAR(128),
+  description VARCHAR(128),
+  img  VARCHAR(128),
+  bet_step  INT,
+  user_id INT UNSIGNED,
+  category_id INT UNSIGNED,
+  lot_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+  FOREIGN KEY (user_id) REFERENCES users (user_id),
+  FOREIGN KEY (category_id) REFERENCES categories (category_id)
 );
 
-CREATE UNIQUE INDEX email ON users(email);
-CREATE UNIQUE INDEX id ON users(id);
-CREATE UNIQUE INDEX name ON categories(name);
-CREATE INDEX name ON lots(name);
-CREATE INDEX description ON lots(description);
+CREATE TABLE bets (
+  bet_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  init_date  TIMESTAMP,
+  user_id INT UNSIGNED,
+  lot_id INT UNSIGNED,
+  sum INT,
+
+  FOREIGN KEY (user_id) REFERENCES users (user_id),
+  FOREIGN KEY (lot_id) REFERENCES lots (lot_id)
+);
+
+CREATE FULLTEXT INDEX name_description ON lots(name, description)
