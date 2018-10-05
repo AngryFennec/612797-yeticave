@@ -32,11 +32,14 @@ VALUES ('aaa@aaa', '12345', '2010-11-23', 'Иван', 'http://1.jpg', 'теле�
        SELECT cat_name from categories;
 
        # получить самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену последней ставки, количество ставок, название категории;
-       SELECT name, sum, img, cat_name FROM lots l
+       SELECT l.name, l.sum, l.img, c.cat_name,
+       (SELECT b.sum FROM bets b WHERE b.lot_id = l.lot_id ORDER BY b.init_date DESC LIMIT 1) AS 'last_bet',
+       (SELECT COUNT(*) FROM bets b WHERE b.lot_id = l.lot_id) AS 'bet_count'
+       FROM lots l
        JOIN categories c
        ON l.category_id = c.category_id
-       WHERE winner_id IS NULL
-       ORDER BY init_date DESC LIMIT 3;
+       WHERE l.winner_id IS NULL
+       ORDER BY l.init_date;
 
        # показать лот по его id. Получите также название категории, к которой принадлежит лот
        SELECT name, sum, img, cat_name  FROM lots l
