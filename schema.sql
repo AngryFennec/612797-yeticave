@@ -19,10 +19,11 @@ CREATE TABLE users (
 CREATE TABLE categories (
   category_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   class VARCHAR(128) UNIQUE,
-  name  VARCHAR(128) UNIQUE
+  cat_name  VARCHAR(128) UNIQUE
 );
 
 CREATE TABLE lots (
+  lot_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   sum  INT,
   init_date  TIMESTAMP,
   end_date  TIMESTAMP,
@@ -32,7 +33,7 @@ CREATE TABLE lots (
   bet_step  INT,
   user_id INT UNSIGNED,
   category_id INT UNSIGNED,
-  lot_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  winner_id INT,
 
   FOREIGN KEY (user_id) REFERENCES users (user_id),
   FOREIGN KEY (category_id) REFERENCES categories (category_id)
