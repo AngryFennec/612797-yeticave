@@ -17,7 +17,7 @@ VALUES ('aaa@aaa', '12345', '2010-11-23', 'Иван', 'http://1.jpg', 'теле�
        ('bbb@bbb', 'qwerty', '2012-05-11', 'Сидр', 'http://2.jpg', 'телефона есть');
 
        INSERT INTO lots (sum, init_date, end_date, name, description, img, bet_step, user_id, category_id, winner_id)
-       VALUES (10999, '2018-10-01', '2018-10-05', '2014 Rossignol District Snowboard', 'доска', 'img/lot-1.jpg', 100, 1, 1, NULL),
+       VALUES (10999, '2018-10-01', '2018-10-08', '2014 Rossignol District Snowboard', 'доска', 'img/lot-1.jpg', 100, 1, 1, NULL),
                (159999, '2018-09-20', '2018-10-15', 'DC Ply Mens 2016/2017 Snowboard', 'доска', 'img/lot-2.jpg', 200, 2, 1, NULL),
                (8000, '2018-09-21', '2018-09-26', 'Крепления Union Contact Pro 2015 года размер L/XL', 'крепления', 'img/lot-3.jpg', 150, 2, 2, 2),
                (10999, '2018-09-30', '2018-10-26', 'Ботинки для сноуборда DC Mutiny Charocal', 'ботинки', 'img/lot-4.jpg', 125, 1, 3, 1),
