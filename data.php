@@ -6,32 +6,32 @@ $bets = [
     ['name' => 'Евгений', 'price' => 10500, 'ts' => strtotime('-' . rand(25, 50) .' hour')],
     ['name' => 'Семён', 'price' => 10000, 'ts' => strtotime('last week')]
 ];
-$categories = [
-[
-    "name" => "Доски и лыжи",
-    "class" => "boards"
-],
-[
-    "name" => "Крепления",
-    "class" => "attachment"
-],
-[
-    "name" => "Ботинки",
-    "class" => "boots"
-],
-[
-    "name" => "Одежда",
-    "class" => "clothing"
-],
-[
-    "name" => "Инструменты",
-     "class" => "tools"
- ],
- [
-     "name" => "Разное",
-     "class" => "other"
- ]
-];
+// $categories = [
+// [
+//     "name" => "Доски и лыжи",
+//     "class" => "boards"
+// ],
+// [
+//     "name" => "Крепления",
+//     "class" => "attachment"
+// ],
+// [
+//     "name" => "Ботинки",
+//     "class" => "boots"
+// ],
+// [
+//     "name" => "Одежда",
+//     "class" => "clothing"
+// ],
+// [
+//     "name" => "Инструменты",
+//      "class" => "tools"
+//  ],
+//  [
+//      "name" => "Разное",
+//      "class" => "other"
+//  ]
+// ];
 $lots = [
     [
         'name' => '2014 Rossignol District Snowboard',
