@@ -17,7 +17,7 @@ VALUES ('aaa@aaa', '12345', '2010-11-23', 'Иван', 'http://1.jpg', 'теле�
        ('bbb@bbb', 'qwerty', '2012-05-11', 'Сидр', 'http://2.jpg', 'телефона есть');
 
        INSERT INTO lots (sum, init_date, end_date, name, description, img, bet_step, user_id, category_id, winner_id)
-       VALUES (10999, '2018-10-01', '2018-10-05', '2014 Rossignol District Snowboard', 'доска', 'img/lot-1.jpg', 100, 1, 1, NULL),
+       VALUES (10999, '2018-10-01', '2018-10-08', '2014 Rossignol District Snowboard', 'доска', 'img/lot-1.jpg', 100, 1, 1, NULL),
                (159999, '2018-09-20', '2018-10-15', 'DC Ply Mens 2016/2017 Snowboard', 'доска', 'img/lot-2.jpg', 200, 2, 1, NULL),
                (8000, '2018-09-21', '2018-09-26', 'Крепления Union Contact Pro 2015 года размер L/XL', 'крепления', 'img/lot-3.jpg', 150, 2, 2, 2),
                (10999, '2018-09-30', '2018-10-26', 'Ботинки для сноуборда DC Mutiny Charocal', 'ботинки', 'img/lot-4.jpg', 125, 1, 3, 1),
@@ -33,13 +33,16 @@ VALUES ('aaa@aaa', '12345', '2010-11-23', 'Иван', 'http://1.jpg', 'теле�
 
        # получить самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену последней ставки, количество ставок, название категории;
        SELECT l.name, l.sum, l.img, c.cat_name,
-       (SELECT b.sum FROM bets b WHERE b.lot_id = l.lot_id ORDER BY b.init_date DESC LIMIT 1) AS 'last_bet',
-       (SELECT COUNT(*) FROM bets b WHERE b.lot_id = l.lot_id) AS 'bet_count'
-       FROM lots l
-       JOIN categories c
-       ON l.category_id = c.category_id
-       WHERE l.winner_id IS NULL
-       ORDER BY l.init_date;
+              (SELECT b.sum FROM bets b WHERE b.lot_id = l.lot_id ORDER BY b.init_date DESC LIMIT 1) AS 'last_bet',
+              СOUNT(b.bet_id) AS 'bet_count'
+              FROM lots l
+              JOIN categories c
+              ON l.category_id = c.category_id
+              LEFT JOIN bets b
+              ON l.lot_id = b.lot_id
+              WHERE l.winner_id IS NULL
+              GROUP BY l.lot_id
+              ORDER BY l.init_date;
 
        # показать лот по его id. Получите также название категории, к которой принадлежит лот
        SELECT name, sum, img, cat_name  FROM lots l

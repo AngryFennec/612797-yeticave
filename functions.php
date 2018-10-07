@@ -31,6 +31,7 @@ function get_random_date() {
 }
 
 function get_formatted_time($end_date) {
+    $end_date = strtotime($end_date);
     $diff_date = $end_date - time();
     $hours = floor($diff_date / 3600);
     $minutes = floor(($diff_date % 3600) / 60);
