@@ -1,5 +1,6 @@
 <?php
 require_once('functions.php');
+require_once('connect.php');
 require_once('data.php');
 
 $is_auth = rand(0, 1);
@@ -9,13 +10,7 @@ $user_avatar = 'img/user.jpg';
 $categories = [];
 $lots = [];
 
-$con = mysqli_connect("localhost", "root", "", "612797_yeticave");
-mysqli_set_charset($con, "utf8");
-if ($con == false) {
-    print("Ошибка подключения: " . mysqli_connect_error());
-}
-else {
-    $sql_cat = "SELECT * FROM categories";
+$sql_cat = "SELECT * FROM categories";
     $result_cat = mysqli_query($con, $sql_cat);
     if ($result_cat) {
         $categories = mysqli_fetch_all($result_cat, MYSQLI_ASSOC);
@@ -26,9 +21,6 @@ else {
     if ($result_lot) {
         $lots = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
     }
-
-}
-
 
 $page_content = render_template('index.php', ['categories' => $categories, 'lots' => $lots]);
 $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'is_auth' => $is_auth, 'user_name' => $user_name, 'user_avatar' => $user_avatar]);

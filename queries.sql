@@ -33,8 +33,8 @@ VALUES ('aaa@aaa', '12345', '2010-11-23', 'Иван', 'http://1.jpg', 'теле�
 
        # получить самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену последней ставки, количество ставок, название категории;
        SELECT l.name, l.sum, l.img, c.cat_name,
-              (SELECT b.sum FROM bets b WHERE b.lot_id = l.lot_id ORDER BY b.init_date DESC LIMIT 1) AS 'last_bet',
-              СOUNT(b.bet_id) AS 'bet_count'
+              COUNT(b.bet_id) AS 'bet_count',
+              COALESCE(MAX(b.sum), l.sum) as 'greatest'
               FROM lots l
               JOIN categories c
               ON l.category_id = c.category_id
