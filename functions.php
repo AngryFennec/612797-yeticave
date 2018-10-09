@@ -1,4 +1,5 @@
 <?php
+
 function render_template($name, $data) {
     $name = 'templates/' . $name;
     $result = '';
@@ -45,4 +46,34 @@ function get_formatted_time($end_date) {
     }
     return $result;
 }
+
+/*
+function get_categories($categories, $con) {
+    if ($categories == []) {
+        $sql_cat = "SELECT * FROM categories";
+        $result_cat = mysqli_query($con, $sql_cat);
+        if ($result_cat) {
+            $categories = mysqli_fetch_all($result_cat, MYSQLI_ASSOC);
+        }
+        else {
+            $categories = [];
+        }
+    }
+    return $categories;
+}
+
+function get_lots($lots, $con) {
+    if ($lots == []) {
+        $sql_lot = "SELECT name, c.cat_name, sum, img, end_date FROM lots l JOIN categories c ON l.category_id = c.category_id WHERE l.winner_id IS NULL ORDER BY l.init_date DESC LIMIT 6";
+        $result_lot = mysqli_query($con, $sql_lot);
+        if ($result_lot) {
+            $lots = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
+        }
+        else {
+            $lots = [];
+        }
+    }
+    return $lots;
+}
+*/
 ?>
