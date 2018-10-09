@@ -12,6 +12,7 @@
     }
     if (!$lot) {
       header("HTTP/1.0 404 Not Found");
+      print("404 ой!")
       exit();
     }
     else {
