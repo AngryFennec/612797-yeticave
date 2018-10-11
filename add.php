@@ -1,14 +1,13 @@
 <?php
     require_once('init.php');
 
-    $page_content = render_template('add.php', ['categories' => $categories, 'lot' => $lot]);
+    $page_content = render_template('add.php', ['categories' => $categories]);
     $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'is_auth' => $is_auth, 'user_name' => $user_name, 'user_avatar' => $user_avatar]);
     print($layout_content);
-
     $data = $_POST;
     $errors = [];
     $fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
-    foreach ($fields as $key): {
+    foreach ($fields as $key) {
       if (empty($data[$key])) {
         $errors[$key] = 'Пожалуйста, заполните это поле';
       }
