@@ -35,23 +35,24 @@
 		     $errors['category'] = 'Выберите категорию';
 	   }
 
+       if (is_uploaded_file($_FILES['photo']['name'])) {
+   		$tmp_name = $_FILES['photo']['tmp_name'];
+   		$path = $_FILES['photo']['name'];
+
+   		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+   		$file_type = finfo_file($finfo, $tmp_name);
+   		  if ($file_type !== "image/jpeg" && $file_type !== "image/png") {
+   			     $errors['photo'] = 'Загрузите картинку в формате jpg/png';
+   		  }
+
+      } else {
+          $errors['photo'] = 'Вы не загрузили файл';
+      }
+
 
     if (empty($errors)) {
-
-      if (is_uploaded_file($_FILES['photo']['name'])) {
-  		$tmp_name = $_FILES['photo']['tmp_name'];
-  		$path = $_FILES['photo']['name'];
-
-  		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-  		$file_type = finfo_file($finfo, $tmp_name);
-  		  if ($file_type !== "image/jpeg" && $file_type !== "image/png") {
-  			     $errors['image'] = 'Загрузите картинку в формате jpg/png';
-  		  }
-  		  else {
-  			     move_uploaded_file($tmp_name, 'img/' . $path);
-  			     $lot['image'] = $path;
-  		  }
-      }
+      move_uploaded_file($tmp_name, 'img/' . $path);
+      $lot['image'] = $path;
 
       $query = "INSERT INTO `lots` SET
       `init_date` = date('Y-m-d H:i:s'),
@@ -70,10 +71,9 @@
           header("Location: lot.php?lot_id=" . mysqli_insert_id($con));
       }
     }
-  }  else {
-    $page_content = render_template('add.php', ['categories' => $categories, 'errors' => $errors]);
-  $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'is_auth' => $is_auth, 'user_name' => $user_name, 'user_avatar' => $user_avatar]);
-  print($layout_content);
 }
+    $page_content = render_template('add.php', ['categories' => $categories, 'errors' => $errors]);
+    $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'is_auth' => $is_auth, 'user_name' => $user_name, 'user_avatar' => $user_avatar]);
+    print($layout_content);
 
     ?>
