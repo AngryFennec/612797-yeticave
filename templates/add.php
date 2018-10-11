@@ -1,27 +1,18 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 7654ceac82b71853534da71b56c39d8601c8896d
 <?php var_dump($errors);?>
 <form class="form form--add-lot container <?php if(!empty($errors)) echo "form--invalid";?>" action="add.php" method="post"> <!-- form--invalid -->
   <h2>Добавление лота</h2>
   <div class="form__container-two">
     <div class="form__item <?php isset($errors['lot-name']) ? "form__item--invalid" : ""?>"> <!-- form__item--invalid -->
-<<<<<<< HEAD
       <label for="lot-name">Наименование</label>
       <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" required>
       <span class="form__error"><?=$errors['lot-name'];?></span>
-=======
-=======
 <form class="form form--add-lot container" action="../add.php" method="post"> <!-- form--invalid -->
   <h2>Добавление лота</h2>
   <div class="form__container-two">
     <div class="form__item"> <!-- form__item--invalid -->
->>>>>>> 3bb3b5861d3172ade11be2c8e7801bd3b50acebb
       <label for="lot-name">Наименование</label>
       <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" required>
       <span class="form__error"><?=$errors['lot_name'];?></span>
->>>>>>> 7654ceac82b71853534da71b56c39d8601c8896d
     </div>
     <div class="form__item  <?php echo isset($errors['category']) ? "form__item--invalid" : "";?>">
       <label for="category">Категория</label>
@@ -51,20 +42,14 @@
     <div class="form__item form__item--small <?php echo isset($errors['lot-rate']) ? "form__item--invalid" : "";?>">
       <label for="lot-rate">Начальная цена</label>
       <input id="lot-rate" type="number" name="lot-rate" placeholder="0" required>
-<<<<<<< HEAD
       <span class="form__error"><?=$errors['lot-rate'];?></span>
-=======
       <span class="form__error"><?=$errors['lot_rate'];?></span>
->>>>>>> 7654ceac82b71853534da71b56c39d8601c8896d
     </div>
     <div class="form__item form__item--small  <?php echo isset($errors['lot-step']) ? "form__item--invalid" : "";?>">
       <label for="lot-step">Шаг ставки</label>
       <input id="lot-step" type="number" name="lot-step" placeholder="0" required>
-<<<<<<< HEAD
       <span class="form__error"><?=$errors['lot-step'];?></span>
-=======
       <span class="form__error"><?=$errors['lot_step'];?></span>
->>>>>>> 7654ceac82b71853534da71b56c39d8601c8896d
     </div>
     <div class="form__item <?php echo isset($errors['lot-date']) ? "form__item--invalid" : "";?>">
       <label for="lot-date">Дата окончания торгов</label>
