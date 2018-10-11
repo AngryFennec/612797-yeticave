@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 <?php var_dump($errors);?>
 <form class="form form--add-lot container <?php if(!empty($errors)) echo "form--invalid";?>" action="add.php" method="post"> <!-- form--invalid -->
   <h2>Добавление лота</h2>
   <div class="form__container-two">
     <div class="form__item <?php isset($errors['lot-name']) ? "form__item--invalid" : ""?>"> <!-- form__item--invalid -->
+=======
+<form class="form form--add-lot container" action="../add.php" method="post"> <!-- form--invalid -->
+  <h2>Добавление лота</h2>
+  <div class="form__container-two">
+    <div class="form__item"> <!-- form__item--invalid -->
+>>>>>>> 3bb3b5861d3172ade11be2c8e7801bd3b50acebb
       <label for="lot-name">Наименование</label>
       <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" required>
       <span class="form__error"><?=$errors['lot_name'];?></span>
