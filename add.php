@@ -36,16 +36,14 @@
 		     $errors['category'] = 'Выберите категорию';
 	   }
 
-       if (!empty($data['photo']) && mime_content_type($_FILES['photo']['tmp_name'])) {
-   		$tmp_name = $_FILES['photo']['tmp_name'];
-   		$path = $_FILES['photo']['name'];
-
+       if (!empty($data['photo'])) {
+   		$tmp_name = $_FILES['photo2']['tmp_name'];
+   		$path = uniqid();
    		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-   		$file_type = finfo_file($finfo, $tmp_name);
+   		$file_type = mime_content_type($_FILES['photo']['tmp_name']);
    		  if ($file_type !== "image/jpeg" && $file_type !== "image/png") {
    			     $errors['photo'] = 'Загрузите картинку в формате jpg/png';
    		  }
-
       } else {
           $errors['photo'] = 'Вы не загрузили файл';
       }
@@ -53,7 +51,6 @@
 
     if (empty($errors)) {
       move_uploaded_file($tmp_name, 'img/' . $path);
-      $lot['img'] = 'img/' . $path;
 
       $query = "INSERT INTO lots SET init_date = NOW(), name = '". $data['lot-name'] . "', end_date = '" . $data['lot-date'] . "', bet_step = '" . $data['lot-step'] . "', category_id = '" . $data['category'] . "', img = '" . 'img/' . $path . "', description = '" . $data['message'] . "', sum = '" . $data['lot-rate'] . "', user_id = 1, winner_id = NULL";
 
