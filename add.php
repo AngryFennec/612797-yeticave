@@ -1,6 +1,7 @@
 <?php
     require_once('init.php');
     $errors = [];
+    $data = [];
     if (!empty($_POST)) {
 
     $data = $_POST;
@@ -11,10 +12,10 @@
       }
     } //валидация на обязательность
     if (!ctype_digit($data['lot-rate']) || $data['lot-rate'] <= 0) {
-      $errors['lot_rate'] = 'В этом поле должно быть положительное число';
+      $errors['lot-rate'] = 'В этом поле должно быть положительное число';
     }
     if (!ctype_digit($data['lot-step']) || $data['lot-step'] <= 0) {
-      $errors['lot_step'] = 'В этом поле должно быть положительное число';
+      $errors['lot-step'] = 'В этом поле должно быть положительное число';
     }
 
     if (strtotime($data['lot-date']) < time()) {
@@ -35,7 +36,7 @@
 		     $errors['category'] = 'Выберите категорию';
 	   }
 
-       if (is_uploaded_file($_FILES['photo']['name'])) {
+       if (is_uploaded_file($_FILES['photo']['tmp_name'])) {
    		$tmp_name = $_FILES['photo']['tmp_name'];
    		$path = $_FILES['photo']['name'];
 
@@ -52,27 +53,18 @@
 
     if (empty($errors)) {
       move_uploaded_file($tmp_name, 'img/' . $path);
-      $lot['image'] = $path;
+      $lot['img'] = 'img/' . $path;
 
-      $query = "INSERT INTO `lots` SET
-      `init_date` = date('Y-m-d H:i:s'),
-      `name` = ". $data['lot-name'] . ",
-      `end_date` = " . $data['lot-date'] . ",
-      `bet_step` = " . $data['lot-step'] . ",
-      `category_id` = " . $data['category'] . ",
-      `description` = " . $data['message'] . ",
-      `sum` = " . $data['lot-rate'] . ",
-      `user_id` = 1,
-      `winner_id` = NULL";
-
+      $query = "INSERT INTO lots SET init_date = NOW(), name = '". $data['lot-name'] . "', end_date = '" . $data['lot-date'] . "', bet_step = '" . $data['lot-step'] . "', category_id = '" . $data['category'] . "', img = '" . 'img/' . $path . "', description = '" . $data['message'] . "', sum = '" . $data['lot-rate'] . "', user_id = 1, winner_id = NULL";
 
       $result = mysqli_query($con, $query);
       if ($result) {
+
           header("Location: lot.php?lot_id=" . mysqli_insert_id($con));
       }
     }
 }
-    $page_content = render_template('add.php', ['categories' => $categories, 'errors' => $errors]);
+    $page_content = render_template('add.php', ['categories' => $categories, 'errors' => $errors, 'data' => $data]);
     $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'is_auth' => $is_auth, 'user_name' => $user_name, 'user_avatar' => $user_avatar]);
     print($layout_content);
 
