@@ -11,18 +11,18 @@
         $errors[$key] = 'Пожалуйста, заполните это поле';
       }
     } //валидация на обязательность
-    if (!ctype_digit($data['lot-rate']) || $data['lot-rate'] <= 0) {
+    if (empty($errors['lot-rate']) && (!ctype_digit($data['lot-rate']) || $data['lot-rate'] <= 0)) {
       $errors['lot-rate'] = 'В этом поле должно быть положительное число';
     }
-    if (!ctype_digit($data['lot-step']) || $data['lot-step'] <= 0) {
+    if (empty($errors['lot-step']) && (!ctype_digit($data['lot-step']) || $data['lot-step'] <= 0)) {
       $errors['lot-step'] = 'В этом поле должно быть положительное число';
     }
 
-    if (strtotime($data['lot-date']) < time()) {
+    if (empty($errors['lot-date']) && strtotime($data['lot-date']) < time()) {
       $errors['lot-date'] = 'Некорректная дата';
     }
 
-    if (strlen($data['lot-name']) > 128) {
+    if (empty($errors['lot-name']) && strlen($data['lot-name']) > 128) {
       $errors['lot-name'] = 'Слишком длинное имя';
     }
 
@@ -36,7 +36,7 @@
 		     $errors['category'] = 'Выберите категорию';
 	   }
 
-       if (is_uploaded_file($_FILES['photo']['tmp_name'])) {
+       if (!empty($data['photo']) && mime_content_type($_FILES['photo']['tmp_name'])) {
    		$tmp_name = $_FILES['photo']['tmp_name'];
    		$path = $_FILES['photo']['name'];
 
