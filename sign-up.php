@@ -52,7 +52,7 @@
         if (!empty($data['photo2'])) {
             move_uploaded_file($tmp_name, 'img/' . $path);
         }
-        $query = "INSERT INTO users SET init_date = NOW(), name = '". $data['name'] . "', password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "', avatar = '" . 'img/' . $path . "', contacts = '" . $data['message'] . "'";
+        $query = "INSERT INTO users SET init_date = NOW(), email = '". $data['email'] . "', name = '". $data['name'] . "', password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "', avatar = '" . 'img/' . $path . "', contacts = '" . $data['message'] . "'";
         $result = mysqli_query($con, $query);
         if ($result) {
             header("Location: login.php");
