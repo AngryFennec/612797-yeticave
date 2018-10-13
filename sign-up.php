@@ -44,14 +44,13 @@
     $path="";
     $tmp_name = "";
 
-       if (!empty($data['photo2'])) {
+       if (is_uploaded_file($_FILES['photo2']['tmp_name'])) {
    		$tmp_name = $_FILES['photo2']['tmp_name'];
    		$file_type = mime_content_type($tmp_name);
    		 if ($file_type !== "image/jpeg" && $file_type !== "image/png") {
    			     $errors['photo2'] = 'Загрузите картинку в формате jpg/png';
    		  }
           $ftype = '';
-          print($file_type);
           if ($file_type == "image/jpeg") {
               $ftype = ".jpg";
           }
@@ -62,11 +61,8 @@
       }
 
     if (empty($errors)) {
-        if (!empty($data['photo2'])) {
-            move_uploaded_file($tmp_name,  $path);
-        }
+        move_uploaded_file($tmp_name,  $path);
         $query = "INSERT INTO users SET init_date = NOW(), email = '". $data['email'] . "', name = '". $data['name'] . "', password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "', avatar = '" . $path . "', contacts = '" . $data['message'] . "'";
-        print($query);
         $result = mysqli_query($con, $query);
         if ($result) {
             header("Location: login.php");

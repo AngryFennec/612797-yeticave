@@ -44,7 +44,7 @@
 		     $errors['category'] = 'Выберите категорию';
 	   }
 
-       if (isset($data['photo'])) {
+       if (is_uploaded_file($_FILES['photo']['tmp_name'])) {
    		$tmp_name = $_FILES['photo']['tmp_name'];
    		$file_type = mime_content_type($tmp_name);
    		  if ($file_type !== "image/jpeg" && $file_type !== "image/png") {
