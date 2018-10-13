@@ -1,4 +1,4 @@
-<form class="form container <?php if(!empty($errors)) echo "form--invalid";?>" action="login.php" enctype="multipart/form-data" method="post"> <!-- form--invalid -->>
+<form class="form container <?php if(!empty($errors)) echo "form--invalid";?>" action="login.php" enctype="multipart/form-data" method="post"> <!-- form--invalid -->
 <h2>Вход</h2>
 <div class="form__item <?=!empty($errors['email']) ? "form__item--invalid" : ""?>"> <!-- form__item--invalid -->
 <label for="email">E-mail*</label>

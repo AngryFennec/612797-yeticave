@@ -1,5 +1,4 @@
 <section class="lot-item container">
-
 <h2><?=$lot['name']?></h2>
 <div class="lot-item__content">
 <div class="lot-item__left">
@@ -10,6 +9,7 @@
   <p class="lot-item__description"><?=htmlspecialchars($lot['description'])?></p>
 </div>
 <div class="lot-item__right">
+    <?php if (!empty($user)): ?>
   <div class="lot-item__state">
     <div class="lot-item__timer timer">
       10:54:12
@@ -31,6 +31,7 @@
       <button type="submit" class="button">Сделать ставку</button>
     </form>
   </div>
+<?php endif; ?>
   <div class="history">
     <h3>История ставок (<span>10</span>)</h3>
     <table class="history__list">
