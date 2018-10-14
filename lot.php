@@ -2,6 +2,9 @@
     require_once('init.php');
     $lot_id = 0;
     $lot = [];
+    session_start();
+    $user = isset($_SESSION['user']) ? $_SESSION['user'] : [];
+
     if (isset($_GET['lot_id'])) {
       $lot_id = intval($_GET['lot_id']);
     }
@@ -16,8 +19,8 @@
       exit();
     }
     else {
-      $page_content = render_template('lot.php', ['categories' => $categories, 'lot' => $lot]);
-      $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'is_auth' => $is_auth, 'user_name' => $user_name, 'user_avatar' => $user_avatar]);
+      $page_content = render_template('lot.php', ['categories' => $categories, 'lot' => $lot, 'user' => $user]);
+      $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'user' => $user]);
       print($layout_content);
     }
 

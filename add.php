@@ -2,6 +2,14 @@
     require_once('init.php');
     $errors = [];
     $data = [];
+    session_start();
+    $user = isset($_SESSION['user']) ? $_SESSION['user'] : [];
+    if (empty($user)) {
+        header("HTTP/1.0 403 Forbidden");
+        print("403 Анонимный пользователь не может добавлять лот");
+        exit();
+    }
+
     if (!empty($_POST)) {
 
     $data = $_POST;
@@ -36,15 +44,27 @@
 		     $errors['category'] = 'Выберите категорию';
 	   }
 
-       if (!empty($data['photo'])) {
-   		$tmp_name = $_FILES['photo2']['tmp_name'];
-   		$path = uniqid();
-   		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-   		$file_type = mime_content_type($_FILES['photo']['tmp_name']);
+       if (is_uploaded_file($_FILES['photo']['tmp_name'])) {
+   		$tmp_name = $_FILES['photo']['tmp_name'];
+   		$file_type = mime_content_type($tmp_name);
    		  if ($file_type !== "image/jpeg" && $file_type !== "image/png") {
    			     $errors['photo'] = 'Загрузите картинку в формате jpg/png';
    		  }
+          $ftype = '';
+          if ($file_type == "image/jpeg") {
+              $ftype = ".jpg";
+          }
+          if ($file_type == "image/png") {
+              $ftype = ".png";
+          }
+          $path = uniqid() . $ftype;
+
+  		  if ($file_type !== "image/jpeg" && $file_type !== "image/png") {
+  			     $errors['image'] = 'Загрузите картинку в формате jpg/png';
+  		  }
+
       } else {
+          var_dump($errors);
           $errors['photo'] = 'Вы не загрузили файл';
       }
 
@@ -52,8 +72,7 @@
     if (empty($errors)) {
       move_uploaded_file($tmp_name, 'img/' . $path);
 
-      $query = "INSERT INTO lots SET init_date = NOW(), name = '". $data['lot-name'] . "', end_date = '" . $data['lot-date'] . "', bet_step = '" . $data['lot-step'] . "', category_id = '" . $data['category'] . "', img = '" . 'img/' . $path . "', description = '" . $data['message'] . "', sum = '" . $data['lot-rate'] . "', user_id = 1, winner_id = NULL";
-
+      $query = "INSERT INTO lots SET init_date = NOW(), name = '". $data['lot-name'] . "', end_date = '" . $data['lot-date'] . "', bet_step = '" . $data['lot-step'] . "', category_id = '" . $data['category'] . "', img = '" . 'img/' . $path . "', description = '" . $data['message'] . "', sum = '" . $data['lot-rate'] . "', user_id = '" . $user['user_id'] . "', winner_id = NULL";
       $result = mysqli_query($con, $query);
       if ($result) {
 
@@ -62,7 +81,7 @@
     }
 }
     $page_content = render_template('add.php', ['categories' => $categories, 'errors' => $errors, 'data' => $data]);
-    $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'is_auth' => $is_auth, 'user_name' => $user_name, 'user_avatar' => $user_avatar]);
+    $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories,   'user' => $user]);
     print($layout_content);
 
     ?>

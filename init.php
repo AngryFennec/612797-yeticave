@@ -5,10 +5,7 @@ require_once('connect.php');
 require_once('data.php');
 $categories = [];
 $lots = [];
-$is_auth = rand(0, 1);
-$user_name = ''; // укажите здесь ваше имя
-$user_avatar = 'img/user.jpg';
-
+$user = !empty($_SESSION['user']) ? $_SESSION['user'] : [];
 
 
 $sql_cat = "SELECT * FROM categories";
