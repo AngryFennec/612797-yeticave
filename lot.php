@@ -2,8 +2,6 @@
     require_once('init.php');
     $lot_id = 0;
     $lot = [];
-    session_start();
-    $user = isset($_SESSION['user']) ? $_SESSION['user'] : [];
 
     if (isset($_GET['lot_id'])) {
       $lot_id = intval($_GET['lot_id']);

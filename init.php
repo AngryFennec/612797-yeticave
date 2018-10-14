@@ -5,8 +5,8 @@ require_once('connect.php');
 require_once('data.php');
 $categories = [];
 $lots = [];
-$user = !empty($_SESSION['user']) ? $_SESSION['user'] : [];
-
+session_start();
+$user = isset($_SESSION['user']) ? $_SESSION['user'] : [];
 
 $sql_cat = "SELECT * FROM categories";
 $result_cat = mysqli_query($con, $sql_cat);

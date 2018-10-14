@@ -2,8 +2,6 @@
     require_once('init.php');
     $errors = [];
     $data = [];
-    session_start();
-    $user = isset($_SESSION['user']) ? $_SESSION['user'] : [];
     if (empty($user)) {
         header("HTTP/1.0 403 Forbidden");
         print("403 Анонимный пользователь не может добавлять лот");
@@ -75,8 +73,8 @@
       $query = "INSERT INTO lots SET init_date = NOW(), name = '". $data['lot-name'] . "', end_date = '" . $data['lot-date'] . "', bet_step = '" . $data['lot-step'] . "', category_id = '" . $data['category'] . "', img = '" . 'img/' . $path . "', description = '" . $data['message'] . "', sum = '" . $data['lot-rate'] . "', user_id = '" . $user['user_id'] . "', winner_id = NULL";
       $result = mysqli_query($con, $query);
       if ($result) {
-
           header("Location: lot.php?lot_id=" . mysqli_insert_id($con));
+          exit();
       }
     }
 }

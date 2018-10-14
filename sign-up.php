@@ -2,10 +2,9 @@
     require_once('init.php');
     $errors = [];
     $data = [];
-    session_start();
-    $user = isset($_SESSION['user']) ? $_SESSION['user'] : [];
     if (!empty($user)) {
         header("Location: index.php");
+        exit();
     }
     if (!empty($_POST)) {
 
@@ -66,6 +65,7 @@
         $result = mysqli_query($con, $query);
         if ($result) {
             header("Location: login.php");
+            exit();
         }
     }
 }

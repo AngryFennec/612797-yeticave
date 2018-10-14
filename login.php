@@ -2,15 +2,11 @@
     require_once('init.php');
     $errors = [];
     $data = [];
-    session_start();
-    $user = isset($_SESSION['user']) ? $_SESSION['user'] : [];
     if (!empty($user)) {
         header("Location: index.php");
+        exit();
     }
-
-    else {
-
-        if (!empty($_POST)) {
+    if (!empty($_POST)) {
 
         $data = $_POST;
         $fields = ['email', 'password'];
@@ -44,9 +40,10 @@
 
         if (empty($errors)) {
                 header("Location: index.php");
+                exit();
         }
     }
-    }
+
 
     $page_content = render_template('login.php', ['categories' => $categories, 'errors' => $errors, 'data' => $data]);
     $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'user' => $user]);
