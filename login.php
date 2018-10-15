@@ -21,7 +21,10 @@
         }
 
         //проверка email и пароля
-        if (!empty($data['email']) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!empty($data['email'])) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+              $errors[$key] = 'Введите валидный email';
+            } else {
             $email = mysqli_real_escape_string($con, $data['email']);
     	    $sql = "SELECT * FROM users WHERE email = '" . $email. "'";
     	    $res = mysqli_query($con, $sql);
@@ -41,6 +44,7 @@
             else {
                 $errors['email'] = 'Такой пользователь не найден';
             }
+        }
         }
     }
 
