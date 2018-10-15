@@ -38,7 +38,7 @@
         <?php
         foreach ($bets as $val):?>
         <tr class="history__item">
-          <td class="history__name"><?=$val['name']?></td>
+          <td class="history__name"><?=htmlspecialchars($val['name'])?></td>
           <td class="history__price"><?=$val['sum']?></td>
           <td class="history__time"><?=get_formatted_time_bet($val['init_date'])?></td>
         </tr>

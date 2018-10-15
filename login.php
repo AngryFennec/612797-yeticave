@@ -28,6 +28,8 @@
     	    if (empty($errors) and $user) {
     		    if (password_verify($data['password'], $user['password'])) {
                     $_SESSION['user'] = $user;
+                    header("Location: index.php");
+                    exit();
                 }
                 else {
                     $errors['password'] = 'Неверный пароль';
@@ -36,11 +38,6 @@
             else {
                 $errors['email'] = 'Такой пользователь не найден';
             }
-        }
-
-        if (empty($errors)) {
-                header("Location: index.php");
-                exit();
         }
     }
 

@@ -81,12 +81,11 @@ function get_max_bet($bets) {
     return $max;
 }
 function is_already_bet($user, $bets) {
-    $is_bet = false;
     foreach($bets as  $val){
             if ($val['user_id'] == $user['user_id']) {
-                $is_bet = true;
+                return true;
             }
         }
-    return $is_bet;
+    return false;
 }
 ?>
