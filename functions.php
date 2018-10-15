@@ -31,6 +31,22 @@ function get_random_date() {
     return (rand(time(), $max_date));
 }
 
+function get_formatted_time_bet($end_date) {
+    $end_date = strtotime($end_date);
+    $diff_date = time() - $end_date;
+    $hours = floor($diff_date / 3600);
+    $minutes = floor(($diff_date % 3600) / 60);
+    $result = $hours.':'.$minutes;
+    if ($hours >= 24) {
+        $days = floor($hours / 24);
+        $result = $days." дн.";
+        if ($days > 7) {
+            $result = date("d.m.Y", $end_date);
+        }
+    }
+    return $result;
+}
+
 function get_formatted_time($end_date) {
     $end_date = strtotime($end_date);
     $diff_date = $end_date - time();
@@ -47,33 +63,29 @@ function get_formatted_time($end_date) {
     return $result;
 }
 
-/*
-function get_categories($categories, $con) {
-    if ($categories == []) {
-        $sql_cat = "SELECT * FROM categories";
-        $result_cat = mysqli_query($con, $sql_cat);
-        if ($result_cat) {
-            $categories = mysqli_fetch_all($result_cat, MYSQLI_ASSOC);
-        }
-        else {
-            $categories = [];
-        }
+function get_bets($lot, $con) {
+    $query = "SELECT b.init_date, b.user_id, b.sum, u.name FROM bets b JOIN users u ON b.user_id = u.user_id WHERE b.lot_id = '" . $lot['lot_id'] . "' ORDER BY init_date DESC LIMIT 10";
+    $result = mysqli_query($con, $query);
+    if ($result) {
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
-    return $categories;
+    return [];
 }
-
-function get_lots($lots, $con) {
-    if ($lots == []) {
-        $sql_lot = "SELECT name, c.cat_name, sum, img, end_date FROM lots l JOIN categories c ON l.category_id = c.category_id WHERE l.winner_id IS NULL ORDER BY l.init_date DESC LIMIT 6";
-        $result_lot = mysqli_query($con, $sql_lot);
-        if ($result_lot) {
-            $lots = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
+function get_max_bet($bets) {
+    $max = 0;
+    foreach($bets as  $val){
+            if ($val['sum'] > $max) {
+                $max = $val['sum'];
+            }
         }
-        else {
-            $lots = [];
-        }
-    }
-    return $lots;
+    return $max;
 }
-*/
+function is_already_bet($user, $bets) {
+    foreach($bets as  $val){
+            if ($val['user_id'] == $user['user_id']) {
+                return true;
+            }
+        }
+    return false;
+}
 ?>

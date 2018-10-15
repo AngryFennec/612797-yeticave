@@ -56,4 +56,4 @@ VALUES ('aaa@aaa', '12345', '2010-11-23', 'Иван', 'http://1.jpg', 'теле�
 
        # получить список самых свежих ставок для лота по его идентификатору;
        SELECT init_date, user_id, sum FROM bets
-       WHERE lot_id = 2 ORDER BY init_date DESC LIMIT 3;
+       WHERE lot_id = 2 ORDER BY sum DESC LIMIT 3;

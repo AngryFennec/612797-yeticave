@@ -2,20 +2,19 @@
     require_once('init.php');
     $errors = [];
     $data = [];
-    session_start();
-    $user = isset($_SESSION['user']) ? $_SESSION['user'] : [];
     if (!empty($user)) {
         header("Location: index.php");
+        exit();
     }
-
-    else {
-
-        if (!empty($_POST)) {
+    if (!empty($_POST)) {
 
         $data = $_POST;
         $fields = ['email', 'password'];
         //валидация на обязательность
         foreach ($fields as $key) {
+          if (!empty($data[$key])) {
+            $data[$key] = trim($data[$key]);
+          }
           if (empty($data[$key])) {
             $errors[$key] = 'Пожалуйста, заполните это поле';
           }
@@ -32,6 +31,8 @@
     	    if (empty($errors) and $user) {
     		    if (password_verify($data['password'], $user['password'])) {
                     $_SESSION['user'] = $user;
+                    header("Location: index.php");
+                    exit();
                 }
                 else {
                     $errors['password'] = 'Неверный пароль';
@@ -41,12 +42,8 @@
                 $errors['email'] = 'Такой пользователь не найден';
             }
         }
+    }
 
-        if (empty($errors)) {
-                header("Location: index.php");
-        }
-    }
-    }
 
     $page_content = render_template('login.php', ['categories' => $categories, 'errors' => $errors, 'data' => $data]);
     $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'user' => $user]);
