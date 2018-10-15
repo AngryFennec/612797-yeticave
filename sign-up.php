@@ -12,6 +12,9 @@
     $fields = ['email', 'password', 'name', 'message'];
     //валидация на обязательность
     foreach ($fields as $key) {
+      if (!empty($data[$key])) {
+        $data[$key] = trim($data[$key]);
+      }
       if (empty($data[$key])) {
         $errors[$key] = 'Пожалуйста, заполните это поле';
       }
@@ -60,13 +63,15 @@
       }
 
     if (empty($errors)) {
+      if ($path != "") {
         move_uploaded_file($tmp_name,  $path);
-        $query = "INSERT INTO users SET init_date = NOW(), email = '". $data['email'] . "', name = '". $data['name'] . "', password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "', avatar = '" . $path . "', contacts = '" . $data['message'] . "'";
-        $result = mysqli_query($con, $query);
-        if ($result) {
-            header("Location: login.php");
-            exit();
-        }
+      }
+      $query = "INSERT INTO users SET init_date = NOW(), email = '". $data['email'] . "', name = '". $data['name'] . "', password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "', avatar = '" . $path . "', contacts = '" . $data['message'] . "'";
+      $result = mysqli_query($con, $query);
+      if ($result) {
+          header("Location: login.php");
+          exit();
+      }
     }
 }
     $page_content = render_template('sign-up.php', ['categories' => $categories, 'errors' => $errors, 'data' => $data]);

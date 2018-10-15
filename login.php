@@ -12,6 +12,9 @@
         $fields = ['email', 'password'];
         //валидация на обязательность
         foreach ($fields as $key) {
+          if (!empty($data[$key])) {
+            $data[$key] = trim($data[$key]);
+          }
           if (empty($data[$key])) {
             $errors[$key] = 'Пожалуйста, заполните это поле';
           }

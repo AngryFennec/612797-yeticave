@@ -11,8 +11,11 @@
     if (!empty($_POST)) {
 
     $data = $_POST;
-    $fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
+    $fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date', 'photo'];
     foreach ($fields as $key) {
+      if (!empty($data[$key]) && $key != 'photo') {
+        $data[$key] = trim($data[$key]);
+      }
       if (empty($data[$key])) {
         $errors[$key] = 'Пожалуйста, заполните это поле';
       }
@@ -62,7 +65,6 @@
   		  }
 
       } else {
-          var_dump($errors);
           $errors['photo'] = 'Вы не загрузили файл';
       }
 

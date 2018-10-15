@@ -22,6 +22,9 @@
   $bets = get_bets($lot, $con);
   if (!empty($_POST) && !empty($user)) {
     $data = $_POST;
+    if (!empty($data['cost'])) {
+      $data['cost'] = trim($data['cost']);
+    }
     //валидация на обязательность
     if (empty($data['cost'])) {
       $errors['cost'] = 'Пожалуйста, заполните это поле';
