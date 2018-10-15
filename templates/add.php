@@ -19,10 +19,10 @@
   </div>
   <div class="form__item form__item--wide">
     <label for="message">Описание</label>
-    <textarea id="message" name="message" placeholder="Напишите описание лота" required> <?=!empty($data['message']) ?  $data['message'] : ''; ?></textarea>
+    <textarea id="message" name="message" placeholder="Напишите описание лота" required><?=!empty($data['message']) ?  $data['message'] : ''; ?></textarea>
     <?=!empty($errors['message']) ? $errors['message'] : " "?>
   </div>
-  <div class="form__item form__item--file <?php echo !empty($errors['photo']) ? "form__item--uploaded" : "";?>"> <!-- form__item--uploaded -->
+  <div class="form__item form__item--file <?php echo !empty($errors['photo']) ? "form__item--invalid" : "";?>"> <!-- form__item--uploaded -->
     <label>Изображение</label>
     <div class="form__input-file">
       <input class="visually-hidden" type="file" id="photo" value="" name="photo">
@@ -30,8 +30,9 @@
         <span>+ Добавить</span>
       </label>
     </div>
+    <span class="form__error"><?=!empty($errors['photo']) ? $errors['photo'] : " "?></span>
   </div>
-  <span class="form__error"><?=!empty($errors['photo']) ? $errors['photo'] : " "?></span>
+
   <div class="form__container-three">
     <div class="form__item form__item--small <?php echo !empty($errors['lot-rate']) ? "form__item--invalid" : "";?>">
       <label for="lot-rate">Начальная цена</label>
