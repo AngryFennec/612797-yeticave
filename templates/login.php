@@ -1,3 +1,13 @@
+<nav class="nav">
+    <ul class="nav__list container">
+        <!--заполните этот список из массива категорий-->
+        <?php foreach($categories as $value):?>
+            <li class="nav__item">
+                <a href="/?category=" . <?=$value['category_id']?>><?=$value['cat_name'] ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</nav>
 <form class="form container <?php if(!empty($errors)) echo "form--invalid";?>" action="login.php" enctype="multipart/form-data" method="post"> <!-- form--invalid -->
 <h2>Вход</h2>
 <div class="form__item <?=!empty($errors['email']) ? "form__item--invalid" : ""?>"> <!-- form__item--invalid -->
