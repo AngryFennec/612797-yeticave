@@ -17,10 +17,10 @@
 </div>
 <div class="form__item <?=!empty($errors['message']) ? "form__item--invalid" : ""?>">
 <label for="message">Контактные данные*</label>
-<textarea id="message" name="message" placeholder="Напишите как с вами связаться" required> <?=!empty($data['message']) ?  $data['message'] : ''; ?></textarea>
+<textarea id="message" name="message" placeholder="Напишите как с вами связаться" required><?=!empty($data['message']) ?  $data['message'] : ''; ?></textarea>
 <span class="form__error"><?=!empty($errors['message']) ? $errors['message'] : " "?></span>
 </div>
-<div class="form__item form__item--file form__item--last <?php echo !empty($errors['photo2']) ? "form__item--uploaded" : "";?>">
+<div class="form__item form__item--file form__item--last <?php echo !empty($errors['photo2']) ? "form__item--invalid" : "";?>">
 <label>Аватар</label>
 <div class="preview">
   <button class="preview__remove" type="button">x</button>
