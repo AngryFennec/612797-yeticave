@@ -11,9 +11,9 @@
     if (!empty($_POST)) {
 
     $data = $_POST;
-    $fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date', 'photo'];
+    $fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
     foreach ($fields as $key) {
-      if (!empty($data[$key]) && $key != 'photo') {
+      if (!empty($data[$key])) {
         $data[$key] = trim($data[$key]);
       }
       if (empty($data[$key])) {
