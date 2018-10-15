@@ -1,3 +1,5 @@
+
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +13,7 @@
 <header class="main-header">
     <div class="main-header__container container">
         <h1 class="visually-hidden">YetiCave</h1>
-        <a class="main-header__logo">
+        <a class="main-header__logo" href="/">
             <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
         <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
@@ -24,7 +26,7 @@
 
         <?php if (!empty($user)): ?>
           <div class="user-menu__image">
-            <img src=<?=!empty($user['avatar']) ? $user['avatar'] : 'img/user.jpg'?> width="40" height="40" alt="Пользователь">
+            <img src="<?=!empty($user['avatar']) ? $user['avatar'] : 'img/user.jpg'?>" width="40" height="40" alt="Пользователь">
           </div>
           <div class="user-menu__logged">
               <p><?=$user['name']?></p>
@@ -44,12 +46,10 @@
         </nav>
     </div>
 </header>
-
 <main class="container">
     <?=$page_content;?>
 </main>
 </div>
-
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
@@ -101,6 +101,5 @@
         </div>
     </div>
 </footer>
-
 </body>
 </html>
