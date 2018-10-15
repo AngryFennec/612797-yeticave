@@ -9,7 +9,7 @@
   <p class="lot-item__description"><?=htmlspecialchars($lot['description'])?></p>
 </div>
 <div class="lot-item__right">
-    <?php if (!empty($user) && ($lot['user_id'] != $user['user_id'])): ?>
+    <?php if (!empty($user) && ($lot['user_id'] != $user['user_id']) && !is_already_bet($user, $bets) && time() < strtotime($lot['end_date'])): ?>
   <div class="lot-item__state">
     <div class="lot-item__timer timer">
       10:54:12

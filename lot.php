@@ -29,7 +29,7 @@
     if (empty($errors['cost']) && (!ctype_digit($data['cost']) || $data['cost'] <= 0)) {
       $errors['cost'] = 'В этом поле должно быть положительное число';
     }
-    if (empty($errors['cost']) && (time() > strtotime($lot['end_date']))) {
+    if (empty($errors['cost']) && (time() >= strtotime($lot['end_date']))) {
       $errors['cost'] = 'Время истекло';
     }
     if (empty($errors['cost']) && (is_already_bet($user, $bets))) {
@@ -38,7 +38,7 @@
     if (empty($errors['cost']) && ($data['cost'] <= (get_max_bet($bets) + $lot['bet_step']))) {
       $errors['cost'] = 'Ставка должна быть больше существующей';
     }
-    if (empty($errors['cost'])) {
+    if (empty($errors['cost']) && !empty($lot)) {
       $query = "INSERT INTO bets SET init_date = NOW(), lot_id = '". $lot['lot_id'] . "', sum = '" . $data['cost'] . "', user_id = '" . $user['user_id'] . "'";
       $result = mysqli_query($con, $query);
       if ($result) {
