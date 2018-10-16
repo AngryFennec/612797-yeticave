@@ -21,7 +21,9 @@
   }
   $bets = get_bets($lot, $con);
   if (!empty($_POST) && !empty($user)) {
-    $data = $_POST;
+    foreach ($_POST as $key => $value) {
+      $data[$key] = mysqli_real_escape_string($con, $_POST[$key]);
+    }
     if (!empty($data['cost'])) {
       $data['cost'] = trim($data['cost']);
     }
@@ -38,7 +40,7 @@
     if (empty($errors['cost']) && (is_already_bet($user, $bets))) {
       $errors['cost'] = 'Вы уже делали ставку на этот лот';
     }
-    if (empty($errors['cost']) && ($data['cost'] <= (get_max_bet($bets) + $lot['bet_step']))) {
+    if (empty($errors['cost']) && ($data['cost'] <= (get_max_bet($bets, $lot) + $lot['bet_step']))) {
       $errors['cost'] = 'Ставка должна быть больше существующей';
     }
     if (empty($errors['cost']) && !empty($lot)) {

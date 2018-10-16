@@ -8,7 +8,9 @@
     }
     if (!empty($_POST)) {
 
-    $data = $_POST;
+      foreach ($_POST as $key => $value) {
+        $data[$key] = mysqli_real_escape_string($con, $_POST[$key]);
+      }
     $fields = ['email', 'password', 'name', 'message'];
     //валидация на обязательность
     foreach ($fields as $key) {
@@ -53,10 +55,10 @@
    			     $errors['photo2'] = 'Загрузите картинку в формате jpg/png';
    		  }
           $ftype = '';
-          if ($file_type == "image/jpeg") {
+          if ($file_type === "image/jpeg") {
               $ftype = ".jpg";
           }
-          if ($file_type == "image/png") {
+          if ($file_type === "image/png") {
               $ftype = ".png";
           }
           $path = 'img/' . uniqid() . $ftype;

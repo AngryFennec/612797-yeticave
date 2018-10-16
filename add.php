@@ -9,8 +9,9 @@
     }
 
     if (!empty($_POST)) {
-
-    $data = $_POST;
+      foreach ($_POST as $key => $value) {
+        $data[$key] = mysqli_real_escape_string($con, $_POST[$key]);
+      }
     $fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
     foreach ($fields as $key) {
       if (!empty($data[$key])) {
@@ -37,7 +38,7 @@
 
     $cat_flag = false;
 	  foreach ($categories as $key => $value) {
-		    if ($value['category_id'] == $data['category']) {
+		    if ($value['category_id'] === $data['category']) {
 			       $cat_flag = true;
 		    }
 	   }
@@ -48,14 +49,14 @@
        if (is_uploaded_file($_FILES['photo']['tmp_name'])) {
    		$tmp_name = $_FILES['photo']['tmp_name'];
    		$file_type = mime_content_type($tmp_name);
-   		  if ($file_type !== "image/jpeg" && $file_type !== "image/png") {
+   		  if ($file_type !=== "image/jpeg" && $file_type !=== "image/png") {
    			     $errors['photo'] = 'Загрузите картинку в формате jpg/png';
    		  }
           $ftype = '';
-          if ($file_type == "image/jpeg") {
+          if ($file_type === "image/jpeg") {
               $ftype = ".jpg";
           }
-          if ($file_type == "image/png") {
+          if ($file_type === "image/png") {
               $ftype = ".png";
           }
           $path = uniqid() . $ftype;

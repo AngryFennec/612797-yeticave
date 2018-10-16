@@ -10,7 +10,7 @@
       <label for="category">Категория</label>
       <select id="category" name="category" required>
         <?php foreach ($categories as $key => $val):?>
-            <option <?if ( !empty($data['category_id']) && $data['category_id'] == $val['category_id']) print(' selected') ?>
+            <option <?if ( !empty($data['category_id']) && $data['category_id'] === $val['category_id']) print(' selected') ?>
             value=<?= $val['category_id'] ?>><?=$val["cat_name"];?></option>
         <?php endforeach; ?>
       </select>

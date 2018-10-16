@@ -8,7 +8,9 @@
     }
     if (!empty($_POST)) {
 
-        $data = $_POST;
+      foreach ($_POST as $key => $value) {
+        $data[$key] = mysqli_real_escape_string($con, $_POST[$key]);
+      }
         $fields = ['email', 'password'];
         //валидация на обязательность
         foreach ($fields as $key) {
