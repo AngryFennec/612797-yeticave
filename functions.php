@@ -153,4 +153,32 @@ function is_already_bet($user, $bets) {
         }
     return false;
 }
+
+/**
+ * Проверяет валидность адреса электронной почты
+ *
+ * @param string $value значение адреса из формы
+ * @param mysqli $con mysqli подключение к базе
+ *
+ * @return string строка ошибки
+ */
+
+function validate_email($value,$con) {
+  $error = "";
+  if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+    $error = 'Введен несуществующий адрес!';
+  } else {
+    $email = mysqli_real_escape_string($con, $value);
+    $sql = "SELECT user_id FROM users WHERE email = '" . $email. "'";
+    $res = mysqli_query($con, $sql);
+    if ($res && mysqli_num_rows($res) > 0) {
+      $error = 'Пользователь с этим email уже зарегистрирован';
+    }
+  }
+  if (strlen($value) > 128) {
+    $error = 'Слишком длинный адрес';
+  }
+  return $error;
+}
+
 ?>

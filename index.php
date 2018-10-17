@@ -2,13 +2,12 @@
 require_once('init.php');
 
 $cat_id = "";
+$sql_cat = "";
 if (isset($_GET['category'])) {
   $cat_id = intval($_GET['category']);
-  $sql_lot = "SELECT lot_id, name, c.cat_name, l.category_id, sum, img, end_date FROM lots l JOIN categories c ON l.category_id = c.category_id WHERE l.end_date > NOW() AND l.category_id = ". $cat_id . " ORDER BY l.init_date DESC LIMIT 9";
-} else {
-  $sql_lot = "SELECT lot_id, name, c.cat_name, l.category_id, sum, img, end_date FROM lots l JOIN categories c ON l.category_id = c.category_id WHERE l.end_date > NOW() ORDER BY l.init_date DESC LIMIT 6";
+  $sql_cat = "AND l.category_id = " . $cat_id;
 }
-print($cat_id);
+$sql_lot = "SELECT lot_id, name, c.cat_name, l.category_id, sum, img, end_date FROM lots l JOIN categories c ON l.category_id = c.category_id WHERE l.end_date > NOW() " . $sql_cat . " ORDER BY l.init_date DESC LIMIT 9";
 $result_lot = mysqli_query($con, $sql_lot);
 if ($result_lot) {
     $lots = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
