@@ -1,6 +1,6 @@
 <section class="rates container">
   <h2>Мои ставки</h2>
-  <table class="rates__list"> <!-- --win -->
+  <table class="rates__list">
     <?php foreach ($my_bets as $val):?>
       <tr class="rates__item <?=!empty($val['winner_id']) ? ' rates__item--win' : ''?> <?=strtotime($val['end_date']) > time() ? ' rates__item--end' : ''?>">
       <td class="rates__info">
@@ -8,7 +8,7 @@
           <img src="<?=!empty($val['img']) ? $val['img'] : ''?>" width="54" height="40" alt="<?=!empty($val['category_id']) ? $categories[$val['category_id']] : ''?>">
         </div>
         <h3 class="rates__title"><a href="lot.php?lot_id=<?=$val['lot_id']?>"><?=$val['name']?></a></h3>
-        <? if(!empty($val['winner_id'])):?>
+        <?php if(!empty($val['winner_id'])):?>
         <p><?=$val['contacts'];?></p>
       <? endif ?>
       </td>
@@ -16,13 +16,13 @@
         <?=$categories[$val['category_id']]?>
       </td>
       <td class="rates__timer">
-        <? if(!empty($val['winner_id'])): ?>
+        <?php if(!empty($val['winner_id'])): ?>
         <div class="timer timer--win">Ставка выиграла</div>
-        <?elseif (strtotime($val['end_date']) > time()): ?>
+        <?php elseif (strtotime($val['end_date']) > time()): ?>
           <div class="timer timer--end">Торги окончены</div>
-        <?else?>
+        <?php else: ?>
         <div class="timer timer--finishing"><?=get_formatted_time($val['end_date']);?></div>
-        <?endif?>
+        <?php endif?>
       </td>
       <td class="rates__price">
         <?=$val['sum'];?>

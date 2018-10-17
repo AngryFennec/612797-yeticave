@@ -22,7 +22,10 @@ if (!empty($_POST)) {
   }
   //проверка email
   if (!empty($data['email'])) {
-    $errors['email'] = validate_email($data['email'], $con);
+    $maybe_error = validate_email($data['email'], $con);
+    if ($maybe_error !== "") {
+      $errors['email'] = $maybe_error;
+    }
   }
   if (empty($errors['name']) && strlen($data['name']) > 128) {
     $errors['name'] = 'Слишком длинное имя';
@@ -43,7 +46,7 @@ if (!empty($_POST)) {
     if ($file_type === "image/jpeg") {
       $ftype = ".jpg";
     }
-    if ($file_type === "image/png") {\
+    if ($file_type === "image/png") {
       $ftype = ".png";
     }
     $path = 'img/' . uniqid() . $ftype;

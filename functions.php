@@ -61,7 +61,7 @@ function get_random_date() {
  * @return string Время с момента создания ставки
  */
 function get_formatted_time_bet($init_date) {
-    $end_date = strtotime($init_date);
+    $init_date = strtotime($init_date);
     $diff_date = time() - $init_date;
     $hours = floor($diff_date / 3600);
     $minutes = floor(($diff_date % 3600) / 60);
