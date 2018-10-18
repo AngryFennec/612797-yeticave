@@ -18,15 +18,15 @@
           <img src="<?=!empty($val['img']) ? $val['img'] : ''?>" width="54" height="40" alt="<?=!empty($val['cat_name']) ? $val['cat_name'] : ''?>">
         </div>
         <h3 class="rates__title"><a href="lot.php?lot_id=<?=$val['lot_id']?>"><?=$val['name']?></a></h3>
-        <?php if(!empty($val['winner_id'])):?>
+        <?php if(!empty($val['winner_id'])&& time()>strtotime($val['end_date'])):?>
         <p><?=$val['contacts'];?></p>
       <? endif ?>
       </td>
       <td class="rates__category">
-        <?php $val['cat_name']?>
+        <?=$val['cat_name']?>
       </td>
       <td class="rates__timer">
-        <?php if(!empty($val['winner_id'])): ?>
+        <?php if(!empty($val['winner_id'])&& time()>strtotime($val['end_date'])): ?>
         <div class="timer timer--win">Ставка выиграла</div>
     <?php elseif (strtotime($val['end_date']) < time()): ?>
           <div class="timer timer--end">Торги окончены</div>
