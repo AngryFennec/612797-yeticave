@@ -26,7 +26,6 @@ if ($result_lot) {
               $lot_name = $val['name'];
               $lot_id = $max_bet['lot_id'];
               $message_content = render_template('email.php', ['username' => $username, 'lot_name' => $lot_name, 'lot_id' => $lot_id]);
-              //$message_content = render_template('email.php', ['username' => $max_bet['username'], 'lot_name' => $val['name'], 'lot_id' => $max_bet['lot_id']]);
               $message->setBody($message_content, 'text/html');
               $mailer = new Swift_Mailer($transport);
               $mailer->send($message);
