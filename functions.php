@@ -103,7 +103,7 @@ function get_formatted_time($end_date) {
         $days = floor($hours / 24);
         $result = $days." дн.";
         if ($days > 7) {
-            $result = date("d.m.Y", $end_date);
+            $result = date("d.m.y", $end_date);
         }
     }
     return $result;
