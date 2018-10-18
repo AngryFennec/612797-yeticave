@@ -40,7 +40,7 @@
     if (empty($errors['cost']) && (is_already_bet($user, $bets))) {
       $errors['cost'] = 'Вы уже делали ставку на этот лот';
     }
-    if (empty($errors['cost']) && ($data['cost'] <= (get_max_bet($bets, $lot) + $lot['bet_step']))) {
+    if (empty($errors['cost']) && ($data['cost'] < (get_max_bet($bets, $lot) + $lot['bet_step']))) {
       $errors['cost'] = 'Ставка должна быть больше существующей';
     }
     if (empty($errors['cost']) && !empty($lot)) {
@@ -52,7 +52,7 @@
       }
     }
   }
-  $page_content = render_template('lot.php', ['categories' => $categories, 'lot' => $lot, 'user' => $user, 'bets' => $bets]);
+  $page_content = render_template('lot.php', ['categories' => $categories, 'lot' => $lot, 'user' => $user, 'bets' => $bets, 'errors' => $errors]);
   $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories, 'user' => $user]);
   print($layout_content);
 ?>

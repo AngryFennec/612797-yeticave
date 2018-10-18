@@ -1,17 +1,15 @@
-
 <?php if ($pages_count > 1): ?>
-<div class="pagination">
-
-    <ul class="pagination__control">
-        <li class="pagination-item pagination-item-prev"><a href="index.php?page=<?=$cur_page-1?>">Назад</a></li>
+<ul class="pagination-list">
+    <?php if ($cur_page > 1) : ?><li class="pagination-item pagination-item-prev"><a href="<?=$page_name?>?page=<?=$cur_page-1?>">Назад</a></li><?php endif;?>
     <?php foreach ($pages as $page): ?>
-        <li class="pagination-item <?php if($cur_page === $page){
-            print('pagination-item-active');
-        } else { ''; };?>">
-            <a href="index.php?<?=(!empty($category)) ? "category=$category&" : '';?>page=<?=$page?>"><?=$page?></a>
+        <li class="pagination-item <?= ($cur_page === $page) ? 'pagination-item-active' : '';?>">
+            <? if($page_name ==='index.php'):?>
+            <a href="<?=$page_name?>?<?=(!empty($category)) ? "category=$category&" : '';?>page=<?=$page?>"><?=$page?></a>
+            <?else:?>
+            <a href="<?=$page_name?>?<?="search=$search&";?>page=<?=$page?>"><?=$page?></a>
+            <?endif;?>
         </li>
     <?php endforeach; ?>
-    <li class="pagination-item pagination-item-next"><a href="index.php?page=<?=$cur_page+1?>">Вперед</a></li>
-    </ul>
-</div>
+    <?php if ($cur_page < $pages_count) : ?><li class="pagination-item pagination-item-next"><a href="<?=$page_name?><?=$cur_page+1?>">Вперед</a></li><?php endif;?>
+</ul>
 <?php endif; ?>

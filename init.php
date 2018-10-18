@@ -3,6 +3,7 @@ require_once('connect.php');
 require_once('functions.php');
 require_once('connect.php');
 require_once('data.php');
+require_once('winner.php');
 $categories = [];
 $lots = [];
 session_start();

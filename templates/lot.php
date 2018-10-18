@@ -17,18 +17,19 @@
     <div class="lot-item__cost-state">
       <div class="lot-item__rate">
         <span class="lot-item__amount">Текущая цена</span>
-        <span class="lot-item__cost"><?=$lot['sum']?></span>
+        <span class="lot-item__cost"><?=get_max_bet($bets, $lot)?></span>
       </div>
       <div class="lot-item__min-cost">
-        Мин. ставка <span><?=empty($lot['bet_step'])? 1 : $lot['bet_step']?></span>
+        Мин. ставка <span><?=get_max_bet($bets, $lot) + (empty($lot['bet_step'])? 1 : $lot['bet_step'])?></span>
       </div>
     </div>
-    <form class="lot-item__form" action="lot.php?lot_id=<?=$lot['lot_id']?>" method="post">
+    <form class="lot-item__form <?php if(!empty($errors)) echo "form--invalid";?>" action="lot.php?lot_id=<?=$lot['lot_id']?>" method="post">
       <p class="lot-item__form-item">
         <label for="cost">Ваша ставка</label>
-        <input id="cost" type="number" name="cost" placeholder="12 000">
+        <input id="cost" type="number" name="cost" placeholder=<?=get_max_bet($bets, $lot) + (empty($lot['bet_step'])? 1 : $lot['bet_step'])?>>
       </p>
       <button type="submit" class="button">Сделать ставку</button>
+      <span class="form__error"><?=!empty($errors['cost']) ? $errors['cost'] : " "?></span>
     </form>
   </div>
 <?php endif; ?>

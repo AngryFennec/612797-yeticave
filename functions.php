@@ -63,13 +63,23 @@ function get_random_date() {
 function get_formatted_time_bet($init_date) {
     $init_date = strtotime($init_date);
     $diff_date = time() - $init_date;
-    $hours = floor($diff_date / 3600);
-    $minutes = floor(($diff_date % 3600) / 60);
-    $result = $hours.':'.$minutes;
+    $hours = intval(floor($diff_date / 3600));
+    $minutes = intval(floor(($diff_date % 3600) / 60));
+    $result = '';
+    if ($hours === 0) {
+        if ($minutes === 0) {
+            $result = "только что";
+        } else {
+            $result = $minutes . " м. назад";
+        }
+    }
+    if ($hours >= 1) {
+        $result = $hours . " ч. назад";
+    }
     if ($hours >= 24) {
         $days = floor($hours / 24);
-        $result = $days." дн.";
-        if ($days > 7) {
+        $result = $days." дн. назад";
+        if ($days > 3) {
             $result = date("d.m.Y", $diff_date);
         }
     }
