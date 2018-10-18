@@ -23,8 +23,8 @@
         Мин. ставка <span><?=get_max_bet($bets, $lot) + (empty($lot['bet_step'])? 1 : $lot['bet_step'])?></span>
       </div>
     </div>
-    <form class="lot-item__form <?php if(!empty($errors)) echo "form--invalid";?>" action="lot.php?lot_id=<?=$lot['lot_id']?>" method="post">
-      <p class="lot-item__form-item">
+    <form class="lot-item__form" action="lot.php?lot_id=<?=$lot['lot_id']?>" method="post">
+      <p class="lot-item__form-item <?php if(!empty($errors)) echo "form__item--invalid";?>">
         <label for="cost">Ваша ставка</label>
         <input id="cost" type="number" name="cost" placeholder=<?=get_max_bet($bets, $lot) + (empty($lot['bet_step'])? 1 : $lot['bet_step'])?>>
       </p>
