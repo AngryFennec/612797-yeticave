@@ -35,7 +35,7 @@ if (!empty($result_pagination)) {
     $offset = ($cur_page - 1) * $limit;
 
     $pages = range(1, $pages_count);
-    $pagination = render_template('pagination.php', ['pages_count' => $pages_count, 'cur_page' => $cur_page, 'pages' => $pages, 'page_name' => 'index.php']);
+    $pagination = render_template('pagination.php', ['pages_count' => $pages_count, 'cur_page' => $cur_page, 'pages' => $pages, 'page_name' => 'index.php', 'category' => $cat_id]);
 }
 
 $sql_lot = "SELECT lot_id, name, c.cat_name, l.category_id, sum, img, end_date FROM lots l JOIN categories c ON l.category_id = c.category_id WHERE l.end_date > NOW() " . $sql_cat . " ORDER BY l.init_date DESC LIMIT " . $limit . " OFFSET " . $offset;
