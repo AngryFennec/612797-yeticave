@@ -1,5 +1,6 @@
 <?php
 require_once('init.php');
+require_once('winner.php');
 $pagination = "";
 $pages = [];
 $cat_id = "";
