@@ -15,12 +15,15 @@ if (isset($_GET['category'])) {
 }
 
 $sql_pagination = "SELECT COUNT(*) AS count FROM lots WHERE end_date > NOW()" . $sql_cat;
-$result_pagination = mysqli_query($con, $sql_pagination);
+$$stmt = mysqli_prepare($con, $query);
+mysqli_stmt_error($stmt);
+mysqli_stmt_bind_param($stmt, 's', $search);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+if (!empty($result)) {
+    $lots_searched = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $pages_count = ceil(mysqli_num_rows($result) / $limit);
 
-if ($result_pagination) {
-    $lots_count = mysqli_fetch_all($result_pagination, MYSQLI_ASSOC);
-    //$pages_count = ceil(($lots_count['count']) / $limit);
-/*
     if ($cur_page === 0 || $cur_page > $pages_count) {
         $cur_page = 1;
     }
@@ -28,11 +31,8 @@ if ($result_pagination) {
     $offset = ($cur_page - 1) * $limit;
 
     $pages = range(1, $pages_count);
-    foreach ($pages as $page) {
-        $pagination = render_template('pagination.php', ['page' => $page, 'cur_page' => $cur_page, 'category' => $cat_id]);
-    }*/
+    $pagination = render_template('pagination.php', ['pages_count' => $pages_count, 'cur_page' => $cur_page, 'pages' => $pages]);
 }
-
 
 $sql_lot = "SELECT lot_id, name, c.cat_name, l.category_id, sum, img, end_date FROM lots l JOIN categories c ON l.category_id = c.category_id WHERE l.end_date > NOW() " . $sql_cat . " ORDER BY l.init_date DESC LIMIT" . $limit . " OFFSET" . $offset;
 $result_lot = mysqli_query($con, $sql_lot);
@@ -41,7 +41,7 @@ if ($result_lot) {
 }
 
 
-$page_content = render_template('index.php', ['categories' => $categories, 'lots' => $lots, 'cat_id' => $cat_id, 'pages' => $pages]);
+$page_content = render_template('index.php', ['categories' => $categories, 'lots' => $lots, 'cat_id' => $cat_id, 'pagination' => $pagination]);
 $layout_content = render_template('layout.php', ['page_content' => $page_content, 'title' => 'Главная', 'categories' => $categories,  'user' => $user]);
 print($layout_content);
 

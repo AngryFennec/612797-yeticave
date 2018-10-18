@@ -37,17 +37,4 @@
     <?php endforeach; ?>
     </ul>
 </section>
-<!--
-<?php if(!empty($pagination)):?>
-    <ul class="pagination-list">
-        <li class="pagination-item pagination-item-prev"><a href="index.php?page=<?=$cur_page-1?>">Назад</a></li>
-        <?=$pagination?>
-        <li class="pagination-item <?php if($cur_page === $page){
-            print('pagination-item-active');
-        } else { ''; };?>">
-            <a href="index.php?<?=(!empty($category)) ? "category=$category&" : '';?>page=<?=$page?>"><?=$page?></a>
-        </li>
-        <li class="pagination-item pagination-item-next"><a href="index.php?page=<?=$cur_page+1?>">Вперед</a></li>
-    </ul>
-<?php endif; ?>
--->
+<?=$pagination?>

@@ -1,3 +1,13 @@
+<nav class="nav">
+    <ul class="nav__list container">
+        <!--заполните этот список из массива категорий-->
+        <?php foreach($categories as $value):?>
+            <li class="nav__item">
+                <a href="/?category=" . <?=$value['category_id']?>><?=$value['cat_name'] ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</nav>
 <div class="container">
 <section class="lots">
 <h2>Результаты поиска по запросу «<span><?=$data['search']?></span>»</h2>
