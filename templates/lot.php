@@ -27,9 +27,10 @@
       <p class="lot-item__form-item <?php if(!empty($errors)) echo "form__item--invalid";?>">
         <label for="cost">Ваша ставка</label>
         <input id="cost" type="number" name="cost" placeholder=<?=get_max_bet($bets, $lot) + (empty($lot['bet_step'])? 1 : $lot['bet_step'])?>>
+        <span class="form__error"><?=!empty($errors['cost']) ? $errors['cost'] : " "?></span>
       </p>
       <button type="submit" class="button">Сделать ставку</button>
-      <span class="form__error"><?=!empty($errors['cost']) ? $errors['cost'] : " "?></span>
+
     </form>
   </div>
 <?php endif; ?>
