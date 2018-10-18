@@ -35,7 +35,7 @@ if (!empty($result)) {
     $pagination = render_template('pagination.php', ['pages_count' => $pages_count, 'cur_page' => $cur_page, 'pages' => $pages]);
 }
 
-$sql_lot = "SELECT lot_id, name, c.cat_name, l.category_id, sum, img, end_date FROM lots l JOIN categories c ON l.category_id = c.category_id WHERE l.end_date > NOW() " . $sql_cat . " ORDER BY l.init_date DESC LIMIT" . $limit . " OFFSET" . $offset;
+$sql_lot = "SELECT lot_id, name, c.cat_name, l.category_id, sum, img, end_date FROM lots l JOIN categories c ON l.category_id = c.category_id WHERE l.end_date > NOW() " . $sql_cat . " ORDER BY l.init_date DESC LIMIT " . $limit . " OFFSET " . $offset;
 $result_lot = mysqli_query($con, $sql_lot);
 if ($result_lot) {
     $lots = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
