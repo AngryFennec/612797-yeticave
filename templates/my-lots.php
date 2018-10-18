@@ -12,7 +12,7 @@
   <h2>Мои ставки</h2>
   <table class="rates__list">
     <?php foreach ($my_bets as $val):?>
-      <tr class="rates__item <?=!empty($val['winner_id']) ? ' rates__item--win' : ''?> <?=strtotime($val['end_date']) > time() ? ' rates__item--end' : ''?>">
+      <tr class="rates__item <?=(!empty($val['winner_id']) && time()>strtotime($val['end_date'])) ? ' rates__item--win' : ''?> <?=strtotime($val['end_date']) < time() ? ' rates__item--end' : ''?>">
       <td class="rates__info">
         <div class="rates__img">
           <img src="<?=!empty($val['img']) ? $val['img'] : ''?>" width="54" height="40" alt="<?=!empty($val['cat_name']) ? $val['cat_name'] : ''?>">
