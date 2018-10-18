@@ -1,4 +1,3 @@
---DROP DATABASE 612797_yeticave;
 CREATE DATABASE IF NOT EXISTS 612797_yeticave
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
@@ -36,7 +35,8 @@ CREATE TABLE lots (
   winner_id INT,
 
   FOREIGN KEY (user_id) REFERENCES users (user_id),
-  FOREIGN KEY (category_id) REFERENCES categories (category_id)
+  FOREIGN KEY (category_id) REFERENCES categories (category_id),
+  FULLTEXT INDEX name_description (name, description)
 );
 
 CREATE TABLE bets (
@@ -49,5 +49,3 @@ CREATE TABLE bets (
   FOREIGN KEY (user_id) REFERENCES users (user_id),
   FOREIGN KEY (lot_id) REFERENCES lots (lot_id)
 );
-
-CREATE FULLTEXT INDEX name_description ON lots(name, description)
